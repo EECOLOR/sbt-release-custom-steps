@@ -13,7 +13,7 @@ Usage
 Add the library to the `project/plugins.sbt` as a `libraryDependency`.
 
 ``` scala
-libraryDependencies += "org.qirx" %% "sbt-release-custom-steps" % "0.1-SNAPSHOT"
+libraryDependencies += "org.qirx" %% "sbt-release-custom-steps" % "0.1"
 
 resolvers += "Rhinofly Internal Repository" at "http://maven-repository.rhinofly.net:8081/artifactory/libs-release-local"
 ```
