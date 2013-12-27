@@ -18,13 +18,13 @@ object UpdateVersionInFiles {
       before = commitReleaseVersion,
       in = steps)
 
-  private def insert(step: ReleaseStep, before: ReleaseStep, in: Seq[ReleaseStep]) = {
+  def insert(step: ReleaseStep, before: ReleaseStep, in: Seq[ReleaseStep]) = {
 
     val (beforeStep, rest) = in.span(_ != before)
     (beforeStep :+ step) ++ rest
   }
 
-  private def updateVersionInFiles(files: Seq[File]): ReleaseStep = { s: State =>
+  def updateVersionInFiles(files: Seq[File]): ReleaseStep = { s: State =>
     val settings = Project.extract(s)
 
     val pattern = getPattern(settings)
@@ -34,6 +34,8 @@ object UpdateVersionInFiles {
     def updateFile(file: File) = {
       val contents = IO.read(file)
       val newContents = contents.replaceAll(pattern, replacement)
+      if (contents != newContents)
+        s.log.info(s"Updated version occurrences in '${file.getName}'")
       IO.write(file, newContents)
       vcs(settings).add(file.getAbsolutePath) !! s.log
     }
@@ -43,14 +45,14 @@ object UpdateVersionInFiles {
     s
   }
 
-  private def getPattern(settings:Extracted) = {
+  def getPattern(settings:Extracted) = {
 
     val organization = settings.get(Keys.organization)
     val name = settings.get(Keys.name)
     val % = "\"\\s+%+\\s+\"" // " %% " or "   % "
     val > = "(\""
     val < = ")"
-    val versionPattern = "[\\w\\.-_]+"
+    val versionPattern = "[\\w\\.-]+"
 
     // "org.qirx" %% "sbt-webjar" % "version"
     > + organization + % + name + % + < + versionPattern + > + <

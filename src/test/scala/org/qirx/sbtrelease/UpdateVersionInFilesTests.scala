@@ -2,6 +2,7 @@ package org.qirx.sbtrelease
 
 import org.specs2.mutable.Specification
 import sbt._
+import java.io.File
 
 object UpdateVersionInFilesTests extends Specification {
 
@@ -12,7 +13,5 @@ object UpdateVersionInFilesTests extends Specification {
       val settings = UpdateVersionInFiles(file("unknown"))
       pending("I do not know how to test this.")
     }
-
   }
-
 }

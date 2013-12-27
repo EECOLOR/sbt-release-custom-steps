@@ -4,6 +4,8 @@ releaseSettings
 
 name := "sbt-release-custom-steps"
 
+organization := "org.qirx"
+
 // just a fancy way to say we depend on this library
 addSbtPlugin("com.github.gseitz" % "sbt-release" % "0.8")
 
