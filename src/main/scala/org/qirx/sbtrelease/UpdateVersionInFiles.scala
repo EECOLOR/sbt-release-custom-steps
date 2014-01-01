@@ -9,6 +9,8 @@ import sbt.Keys._
 
 object UpdateVersionInFiles {
 
+  val namePattern = SettingKey[String]("name-pattern")
+
   def apply(files: File*) =
     releaseProcess := withUpdatedFiles(releaseProcess.value, files)
 
@@ -48,7 +50,7 @@ object UpdateVersionInFiles {
   def getPattern(settings:Extracted) = {
 
     val organization = settings.get(Keys.organization)
-    val name = settings.get(Keys.name)
+    val name = settings.getOpt(namePattern).getOrElse(settings.get(Keys.name))
     val % = "\"\\s+%+\\s+\"" // " %% " or "   % "
     val > = "(\""
     val < = ")"
