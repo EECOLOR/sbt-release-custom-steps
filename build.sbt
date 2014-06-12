@@ -7,10 +7,10 @@ name := "sbt-release-custom-steps"
 organization := "org.qirx"
 
 // just a fancy way to say we depend on this library
-addSbtPlugin("com.github.gseitz" % "sbt-release" % "0.8.3")
+addSbtPlugin("com.github.gseitz" % "sbt-release" % "0.8.3" % "provided")
 
 libraryDependencies ++= Seq(
-  sbtDependency.value,
+  sbtDependency.value % "provided",
   "org.specs2" %% "specs2" % "2.3.7" % "test"
 )
 
